@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Lúa Gạo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <link href="css/nongdan.css" rel="stylesheet">
+  <link href="css/luagao.css" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#myPage">Logo</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#myPage">Trang Chủ</a></li>
+          <li><a href="#band">Sản Phẩm</a></li>
+          <li><a href="#contact">Liên hệ</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1>LÚA GẠO</h1>
+    <p>Nông dân là tất cả</p>
+  </div>
+</div>
+
+<div class="container-fluid bg-3 text-center">
+  <h3>Các sản phẩm lúa gạo</h3><br>
+  <div id="productsContainer" class="row">
+   
+</div>
+    
+<footer class="container-fluid text-center">
+  <p>NHÀ NÔNG</p>
+</footer>
+<!-- <script type = 'text/javascript'>
+    $.getJSON('http://192.168.43.231:8888/api/getProducts/lad', function(data){
+        $.each(data, function (index, value) {
+            var div = document.createElement('div');
+
+            div.className += 'col-sm-3';
+            var p = document.createElement('p');
+            p.innerHTML = value.name + "\n"+ value.description;
+            //name.innerHTML = "<p>aassabc</p>";
+            document.getElementById('upperRow').appendChild(div);
+            div.appendChild(p);
+            console.log(value);
+});
+});
+
+
+</script> -->
+<script type="text/javascript">
+  $.ajax({
+    url: `http://localhost:8888/api/searchProducts?q=lua`,
+    type: 'GET',
+    success: (productsList) => {
+      let container = $("#productsContainer");
+      for (let e of productsList) {
+        let col = $('<div class="col-sm-3"></div>');
+        col.append($(`<p>${e.name}</p>`));
+        col.append($('<img src="/image/luagao.jpg" class="image" style="width:100%" alt="Image">'));
+        let overlay = $('<div class="overlay"></div>');
+        overlay.append(`<div style="font-size: 18px; margin-top: 50px">${e.description}</div>`);
+        col.append(overlay);
+        container.append(col);
+      }
+    }
+  });
+</script>
+</body>
+</html>
